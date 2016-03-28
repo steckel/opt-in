@@ -27,22 +27,17 @@ console.log(`Hello ${userName}`);
 
 ```javascript
 function handleRequest(request, response) {
-  let authorizationToken = Optional.of(request.headers["Authorization"]);
-
-  authorizationToken.ifEmpty(() => {
-    response.statusCode = 401;
-    response.end("You need an Authorization header to access this.");
-  });
-
-  let loggedInUser = authorizationToken.map(getUserForAuthToken);
-
-  loggedInUserOpt.ifPresent((user) => {
-    response.statusCode = 200;
-    response.end("Thanks friend!");
-  }).ifEmpty(() => {
-    response.statusCode(500);
-    response.end("We couldn't find a user behind that token.");
-  });
+  Optional.of(request.headers["Authorization"])
+    .ifEmpty(() => {
+      response.statusCode = 401;
+      response.end("You need an Authorization header to access this."); })
+    .map(getUserForAuthToken)
+    .ifPresent((user) => {
+      response.statusCode = 200;
+      response.end("Thanks friend!"); })
+    .ifEmpty(() => {
+      response.statusCode(500);
+      response.end("We couldn't find a user behind that token."); });
 }
 ```
 
