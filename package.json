@@ -1,6 +1,6 @@
 {
   "name": "opt-in",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JavaScript Optional class",
   "main": "dist/opt-in.umd.js",
   "directories": {
@@ -46,4 +46,3 @@
     "source-map-support": "^0.4.0"
   }
 }
-
